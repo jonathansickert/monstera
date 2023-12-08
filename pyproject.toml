@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "monstera"
+version = "0.1.0"
+description = ""
+authors = ["jonathansickert <jonathan.sickert@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+numpy = "^1.26.2"
+pandas = "^2.1.3"
+sqlalchemy = "^2.0.23"
+ruff = "^0.1.6"
+flake8 = "^6.1.0"
+pytest = "^7.4.3"
+black = "^23.11.0"
+mypy = "^1.7.1"
+isort = "^5.12.0"
+pytest-cov = "^4.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
