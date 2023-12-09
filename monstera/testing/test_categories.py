@@ -35,37 +35,37 @@ def test_get_category_df_is_deterministic() -> None:
 
 
 def test_add_category_returns_true_for_new_category(db_resource: DBResource) -> None:
-    assert add_category(db=db_resource, category=TEST_CATEGORY_NAME) is True
+    assert add_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is True
     assert len(db_resource.execute(select(CategoriesTable.c)).fetchall()) == 1
 
 
 def test_add_category_returns_false_for_duplicate_categories(
     db_resource: DBResource,
 ) -> None:
-    assert add_category(db=db_resource, category=TEST_CATEGORY_NAME) is True
-    assert add_category(db=db_resource, category=TEST_CATEGORY_NAME) is False
+    assert add_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is True
+    assert add_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is False
     assert len(db_resource.execute(select(CategoriesTable.c)).fetchall()) == 1
 
 
 def test_delete_category(
     db_resource: DBResource,
 ) -> None:
-    assert add_category(db=db_resource, category=TEST_CATEGORY_NAME) is True
-    assert delete_category(db=db_resource, category=TEST_CATEGORY_NAME) is True
+    assert add_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is True
+    assert delete_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is True
     assert len(db_resource.execute(select(CategoriesTable.c)).fetchall()) == 0
 
 
 def test_delete_category_fails_for_non_existent_category(
     db_resource: DBResource,
 ) -> None:
-    assert delete_category(db=db_resource, category=TEST_CATEGORY_NAME) is False
+    assert delete_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is False
 
 
 def test_get_all_categories(
     db_resource: DBResource,
 ) -> None:
-    assert add_category(db=db_resource, category=TEST_CATEGORY_NAME + "1") is True
-    assert add_category(db=db_resource, category=TEST_CATEGORY_NAME + "2") is True
+    assert add_category(db=db_resource, category_name=TEST_CATEGORY_NAME + "1") is True
+    assert add_category(db=db_resource, category_name=TEST_CATEGORY_NAME + "2") is True
     assert get_all_categories(db=db_resource) == [
         TEST_CATEGORY_NAME + "1",
         TEST_CATEGORY_NAME + "2",
@@ -75,6 +75,8 @@ def test_get_all_categories(
 def test_find_category(
     db_resource: DBResource,
 ) -> None:
-    assert add_category(db=db_resource, category=TEST_CATEGORY_NAME) is True
-    assert find_category(db=db_resource, category=TEST_CATEGORY_NAME) is True
-    assert find_category(db=db_resource, category=TEST_CATEGORY_NAME + "1") is False
+    assert add_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is True
+    assert find_category(db=db_resource, category_name=TEST_CATEGORY_NAME) is True
+    assert (
+        find_category(db=db_resource, category_name=TEST_CATEGORY_NAME + "1") is False
+    )
