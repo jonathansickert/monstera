@@ -4,7 +4,7 @@ from typing import Any
 import pandas as pd
 from sqlalchemy import CursorResult, Engine, Executable, Select, Table, create_engine
 
-__all__: list[str] = ["DBResource", "db"]
+__all__: list[str] = ["DBResource"]
 
 
 @dataclass
@@ -21,6 +21,8 @@ class DBResource:
 
     def write_df(self, table: Table, df: pd.DataFrame) -> int:
         records_written: int | None = 0
+        if df.empty is True:
+            return records_written
         with self.engine.begin() as conn:
             records_written = df.to_sql(
                 name=table.name,
@@ -28,7 +30,6 @@ class DBResource:
                 if_exists="append",
                 index=False,
             )
-        # self.execute(insert(table).values(df.to_dict(orient="records")))
         return 0 if records_written is None else records_written
 
     def purge(self, table: Table) -> None:
@@ -38,8 +39,3 @@ class DBResource:
     def execute(self, stmt: Executable) -> CursorResult[Any]:
         with self.engine.begin() as conn:
             return conn.execute(statement=stmt)
-
-
-db = DBResource(
-    url="sqlite:////Users/jonathansickert/git/monstera/monstera/core/database.db"
-)

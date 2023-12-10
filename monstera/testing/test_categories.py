@@ -8,8 +8,8 @@ from monstera.core.categories import (
     get_all_categories,
     get_category_df,
 )
-from monstera.core.db import DBResource
-from monstera.core.schema import CategoriesTable
+from monstera.db.db import DBResource
+from monstera.db.schema import CategoriesTable
 
 categories_table: Table = CategoriesTable
 

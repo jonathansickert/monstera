@@ -1,13 +1,13 @@
-from datetime import datetime, timezone
+import datetime
 from typing import Any
 
 import pandas as pd
 from sqlalchemy import CursorResult, Table, delete, select
 from sqlalchemy.exc import IntegrityError
 
-from monstera.core.db import DBResource
+from monstera.db.db import DBResource
 from monstera.core.gid import GID
-from monstera.core.schema import CategoriesTable
+from monstera.db.schema import CategoriesTable
 
 categories_table: Table = CategoriesTable
 
@@ -18,7 +18,7 @@ def get_category_df(category_name: str) -> pd.DataFrame:
             {
                 "category_gid": GID.CATEGRORIES.create(category_name),
                 "category_name": category_name,
-                "load_date": datetime.now(tz=timezone.utc),
+                "load_date": datetime.datetime.now(datetime.UTC),
             }
         ]
     )

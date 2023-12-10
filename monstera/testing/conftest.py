@@ -3,8 +3,8 @@ from typing import Iterator
 
 import pytest
 
-from monstera.core.db import DBResource
-from monstera.core.schema import meta
+from monstera.db.db import DBResource
+from monstera.db.schema import meta
 
 
 @pytest.fixture
