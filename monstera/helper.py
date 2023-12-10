@@ -28,7 +28,6 @@ def parse_float_from(string: str) -> float:
 
 def parse_date_from(string: str) -> datetime.date:
     date_str: str = string.replace(".", "-")
-    # return datetime.datetime.strptime(date_str, "%d-%m-%y").date()
     return datetime.date.fromisoformat(date_str)
 
 
